@@ -11,5 +11,10 @@ pipeline {
                 sh 'date'
             }
         }
+        stage('Whoami') {
+            steps {
+                sh 'whoami'
+            }
+        }
     }
 }
