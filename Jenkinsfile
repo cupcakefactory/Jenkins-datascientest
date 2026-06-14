@@ -22,7 +22,9 @@ pipeline {
         }
         stage('Deploy') {
             when {
-                branch 'master'
+                expression { 
+                    env.GIT_BRANCH == 'origin/master' 
+                }
             }
             steps {
                 echo "Déploiement de ${APP_NAME} sur master !"
