@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    environment {
+        APP_NAME = 'cupcake-factory'
+        VERSION = '1.0'
+    }
     stages {
         stage('Bonjour') {
             steps {
-                echo 'Bonjour depuis Jenkins !'
+                echo "Démarrage du pipeline pour ${APP_NAME} version ${VERSION}"
             }
         }
         stage('Date') {
@@ -15,6 +19,22 @@ pipeline {
             steps {
                 sh 'whoami'
             }
+        }
+        stage('Deploy') {
+            when {
+                branch 'master'
+            }
+            steps {
+                echo "Déploiement de ${APP_NAME} sur master !"
+            }
+        }
+    }
+    post {
+        success {
+            echo "✅ Pipeline terminé avec succès !"
+        }
+        failure {
+            echo "❌ Pipeline en échec !"
         }
     }
 }
